@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO PRIMARY -->
+<title>GolNet26 — Mundial 2026: Noticias, Simulador y Predictor de Fútbol</title>
+<meta name="description" content="Todo sobre el Mundial 2026: noticias, simulador de grupos, predictor de partidos, quiz mundialero y votaciones. USA, Canadá y México. ¡El torneo empieza el 11 de junio!">
+<meta name="keywords" content="mundial 2026, copa del mundo 2026, simulador mundial, predictor partidos, grupos mundial 2026, fútbol, FIFA World Cup 2026, resultados mundial">
+<meta name="author" content="GolNet26">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://golnet26.github.io/">
+
+<!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://golnet26.github.io/">
+<meta property="og:title" content="GolNet26 — Todo el Mundial 2026 en un sitio">
+<meta property="og:description" content="Simula grupos, predice partidos, vota a tu campeón y vive el Mundial 2026 con la comunidad. ¡Empieza el 11 de junio!">
+<meta property="og:image" content="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="GolNet26">
+
+<!-- TWITTER CARD -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@golnet26">
+<meta name="twitter:title" content="GolNet26 — Todo el Mundial 2026 en un sitio">
+<meta name="twitter:description" content="Simula grupos, predice partidos, vota a tu campeón. ¡El Mundial empieza el 11 de junio!">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80">
+
+<!-- SCHEMA.ORG STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "GolNet26",
+  "url": "https://golnet26.github.io/",
+  "description": "Web de noticias, simuladores y mini juegos del Mundial de Fútbol 2026",
+  "inLanguage": "es",
+  "about": {
+    "@type": "SportsEvent",
+    "name": "Copa Mundial de Fútbol 2026",
+    "startDate": "2026-06-11",
+    "endDate": "2026-07-19",
+    "location": ["Estados Unidos", "Canadá", "México"]
+  }
+}
+</script>
+
+<!-- FAVICON inline SVG -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00C45A;
+    --green-dark: #009944;
+    --green-glow: rgba(0,196,90,0.18);
+    --gold: #FFD234;
+    --red: #E8293A;
+    --bg: #0a0e0b;
+    --bg2: #111916;
+    --bg3: #162015;
+    --card: #141a12;
+    --border: rgba(0,196,90,0.15);
+    --border2: rgba(0,196,90,0.3);
+    --text: #f0f4f0;
+    --muted: #7a9080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    background: rgba(10,14,11,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--green); }
+  .logo em { color: var(--gold); font-style: normal; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--green); }
+  .nav-badge {
+    background: var(--red);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 5rem 2rem 4rem;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,196,90,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .line2 { color: var(--green); display: block; }
+  .hero h1 .line3 { color: var(--gold); display: block; font-size: 0.55em; letter-spacing: 2px; }
+  .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .countdown-bar {
+    display: inline-flex;
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 1.2rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .cd-unit { text-align: center; }
+  .cd-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+    display: block;
+  }
+  .cd-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .cd-sep { font-size: 2rem; color: var(--border2); align-self: flex-start; padding-top: 0.3rem; }
+
+  /* HOST COUNTRIES */
+  .host-flags {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .host-flag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .flag-emoji { font-size: 1.4rem; }
+
+  /* NOTICIAS GRID */
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+  }
+  .section-title span { color: var(--green); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    padding: 0 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) { .news-grid { grid-template-columns: 1fr; } }
+  .news-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .news-card:hover { border-color: var(--green); transform: translateY(-2px); }
+  .news-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: var(--bg3);
+  }
+  .news-card.big .news-card-img { height: 280px; }
+  .news-side .news-card-img { height: 120px; }
+  .news-card-img-wrap {
+    width: 100%; overflow: hidden; background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .news-card.big .news-card-img-wrap { height: 280px; }
+  .news-card-img-wrap { height: 200px; }
+  .news-side .news-card-img-wrap { height: 120px; }
+  .news-card-body { padding: 1rem 1.2rem; }
+  .news-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green);
+    border: 1px solid var(--green-dark);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 0.5rem;
+  }
+  .news-tag.gold { color: var(--gold); border-color: rgba(255,210,52,0.4); }
+  .news-tag.red { color: var(--red); border-color: rgba(232,41,58,0.4); }
+  .news-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.4rem; }
+  .news-card.big h3 { font-size: 1.6rem; }
+  .news-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+  .news-time { font-size: 0.75rem; color: var(--muted); margin-top: 0.6rem; }
+  .news-side { display: flex; flex-direction: column; gap: 1rem; }
+  .news-side .news-card { display: flex; gap: 0; flex-direction: column; }
+  .news-side .news-card-img { height: 120px; font-size: 3rem; }
+
+  /* MINI JUEGOS SECTION */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 0 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .game-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .game-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,196,90,0.1); }
+  .game-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
+  .game-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .game-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.2rem; }
+  .game-btn {
+    display: inline-block;
+    background: var(--green);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .game-btn:hover { background: var(--gold); }
+  .game-btn.secondary {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+  }
+  .game-btn.secondary:hover { background: var(--green-glow); }
+
+  /* ── SIMULADOR DE GRUPOS ── */
+  .simulador {
+    padding: 0 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .sim-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .group-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .group-header {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .group-letter {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--green);
+  }
+  .group-header span { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .group-teams { padding: 0.5rem; }
+  .team-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .team-row:hover { background: rgba(255,255,255,0.04); }
+  .team-flag { font-size: 1.3rem; }
+  .team-name { font-size: 0.9rem; font-weight: 500; flex: 1; }
+  .team-pts {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--green);
+    min-width: 20px;
+    text-align: right;
+  }
+  .team-qual {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+  .team-qual.q { background: var(--green); }
+  .team-qual.e { background: var(--red); }
+
+  /* PARTIDO SIMULATOR */
+  .match-sim {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .match-sim h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .match-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .match-team-block {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+  }
+  .match-team-block.right { flex-direction: row-reverse; text-align: right; }
+  .match-team-flag { font-size: 2rem; }
+  .match-team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; }
+  .match-vs {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--border2);
+    flex-shrink: 0;
+  }
+  .match-score-display {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-align: center;
+    color: var(--green);
+    letter-spacing: 4px;
+    margin: 1rem 0;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .score-dash { color: var(--muted); }
+  .sim-controls { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+  select {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 160px;
+  }
+  select:focus { outline: none; border-color: var(--green); }
+
+  /* QUIZ */
+  .quiz-section {
+    padding: 0 2rem 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .quiz-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .quiz-progress {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-dot {
+    height: 4px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .quiz-dot.done { background: var(--green); }
+  .quiz-dot.current { background: var(--gold); }
+  .quiz-question {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+  .quiz-opt {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+  }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--green); background: var(--green-glow); }
+  .quiz-opt.correct { border-color: var(--green); background: rgba(0,196,90,0.15); color: var(--green); }
+  .quiz-opt.wrong { border-color: var(--red); background: rgba(232,41,58,0.1); color: var(--red); }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback {
+    font-size: 0.9rem;
+    color: var(--muted);
+    min-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .quiz-feedback.ok { color: var(--green); }
+  .quiz-feedback.fail { color: var(--red); }
+  .quiz-score-display {
+    text-align: center;
+    padding: 2rem;
+  }
+  .quiz-score-display .big-score {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--green);
+    display: block;
+    line-height: 1;
+  }
+  .quiz-score-display p { color: var(--muted); margin: 0.5rem 0 1.5rem; }
+
+  /* PREDICTOR */
+  .predictor-section {
+    padding: 0 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .predictor-bracket {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .bracket-round-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .bracket-matches { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
+  .bracket-match {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .bm-team { flex: 1; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; font-size: 0.95rem; }
+  .bm-team.right { flex-direction: row-reverse; text-align: right; }
+  .bm-flag { font-size: 1.3rem; }
+  .bm-score-inputs { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+  .score-input {
+    width: 40px;
+    height: 40px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    color: var(--green);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 8px;
+    outline: none;
+  }
+  .score-input:focus { border-color: var(--green); }
+  .score-sep { color: var(--muted); font-weight: 700; }
+
+  /* VOTACION */
+  .vote-section {
+    padding: 0 2rem 3rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .vote-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .vote-total { font-size: 0.9rem; color: var(--muted); }
+  .vote-total strong { color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; }
+  .vote-user-pick {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .vote-user-pick .pick-flag { font-size: 1.1rem; }
+  .vote-user-pick strong { color: var(--gold); }
+  .vote-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .vote-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .vote-row.my-pick { border-color: var(--gold); }
+  .vote-row.leader { border-color: var(--green); }
+  .vote-bg-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: rgba(0,196,90,0.06);
+    border-radius: 10px;
+    transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+  .vote-row.my-pick .vote-bg-bar { background: rgba(255,210,52,0.07); }
+  .vote-pos {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 22px;
+    text-align: center;
+    position: relative;
+  }
+  .vote-pos.gold { color: var(--gold); }
+  .vote-flag { font-size: 1.5rem; position: relative; flex-shrink: 0; }
+  .vote-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex: 1;
+    position: relative;
+  }
+  .vote-titles {
+    color: var(--muted);
+    font-size: 0.78rem;
+    position: relative;
+  }
+  .vote-bar-wrap {
+    flex: 2;
+    max-width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+  }
+  .vote-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--bg3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .vote-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--green);
+    transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+  .vote-row.my-pick .vote-bar-fill { background: var(--gold); }
+  .vote-pct {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 42px;
+    text-align: right;
+    color: var(--text);
+    position: relative;
+  }
+  .vote-count {
+    font-size: 0.75rem;
+    color: var(--muted);
+    min-width: 60px;
+    text-align: right;
+    position: relative;
+  }
+  .btn-vote {
+    background: var(--green);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: 'Barlow', sans-serif;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .btn-vote:hover { background: #00e065; }
+  .btn-vote:disabled {
+    background: var(--bg3);
+    color: var(--muted);
+    cursor: default;
+    border: 1px solid var(--border);
+  }
+  .btn-vote.voted-this {
+    background: rgba(255,210,52,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(255,210,52,0.3);
+  }
+  .vote-loading {
+    text-align: center;
+    color: var(--muted);
+    padding: 3rem;
+    font-size: 0.9rem;
+  }
+
+  /* TEAM DETAIL PANEL */
+  .team-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    animation: panelIn 0.25s ease;
+  }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .panel-header-left { display: flex; align-items: center; gap: 0.8rem; }
+  .panel-big-flag { font-size: 2.2rem; }
+  .panel-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .panel-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    font-family: monospace;
+    line-height: 1;
+  }
+  .panel-close:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+  .panel-body { padding: 1.2rem 1.4rem; }
+  .panel-stats {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .panel-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    text-align: center;
+    min-width: 80px;
+  }
+  .panel-stat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green);
+    display: block;
+  }
+  .panel-stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
+  .panel-content {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--text);
+    min-height: 80px;
+  }
+  .panel-content p { margin-bottom: 0.7rem; }
+  .panel-content p:last-child { margin-bottom: 0; }
+  .panel-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .typing-cursor::after {
+    content: '▋';
+    color: var(--green);
+    animation: blink 0.7s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .panel-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    padding: 0.5rem 0;
+  }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .pos-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--muted);
+    width: 30px;
+  }
+  .pos-num.top { color: var(--green); }
+  .clasif-team { display: flex; align-items: center; gap: 0.7rem; }
+  .pts-cell { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+
+  /* BUTTONS */
+  .btn-green {
+    background: var(--green);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .btn-green:hover { background: #00e065; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .btn-outline:hover { background: var(--green-glow); }
+  .flex-center { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .result-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .result-tag.w { background: rgba(0,196,90,0.15); color: var(--green); }
+  .result-tag.d { background: rgba(255,210,52,0.1); color: var(--gold); }
+  .result-tag.l { background: rgba(232,41,58,0.1); color: var(--red); }
+
+  /* SCROLL ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeUp 0.5s ease forwards; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .simulating { animation: pulse 0.6s infinite; }
+
+  /* BACK BTN */
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 2rem 1rem;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--green); }
+  .divider { height: 1px; background: var(--border); margin: 0 2rem 2rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">GOL<span>NET</span> <em>26</em></div>
+  <div class="nav-links">
+    <a onclick="showSection('home')" id="nav-home" class="active">Inicio</a>
+    <a onclick="showSection('simulador')" id="nav-simulador">Grupos</a>
+    <a onclick="showSection('predictor')" id="nav-predictor">Predictor</a>
+    <a onclick="showSection('quiz')" id="nav-quiz">Quiz <span class="nav-badge">NUEVO</span></a>
+    <a onclick="showSection('clasif')" id="nav-clasif">Favoritos</a>
+  </div>
+</nav>
+
+<!-- ══════ HOME ══════ -->
+<div id="section-home" class="section active">
+  <div class="hero fade-in">
+    <div class="hero-eyebrow">⚽ La web del fútbol mundial</div>
+    <h1>
+      MUNDIAL<br>
+      <span class="line2">2026</span>
+      <span class="line3">USA · Canadá · México</span>
+    </h1>
+    <p class="hero-sub">Noticias, análisis, simuladores y mini juegos. Todo lo que necesitas para vivir el Mundial.</p>
+    <div class="countdown-bar" id="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-label">días</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">horas</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">min</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">seg</span></div>
+    </div>
+    <div class="host-flags">
+      <div class="host-flag"><span class="flag-emoji">🇺🇸</span> Estados Unidos</div>
+      <div class="host-flag"><span class="flag-emoji">🇨🇦</span> Canadá</div>
+      <div class="host-flag"><span class="flag-emoji">🇲🇽</span> México</div>
+    </div>
+  </div>
+
+  <!-- MINI JUEGOS PROMO -->
+  <div class="section-title">Mini <span>Juegos</span></div>
+  <div class="games-grid">
+    <div class="game-card" onclick="showSection('simulador')">
+      <span class="game-icon">🏆</span>
+      <h3>Simulador de Grupos</h3>
+      <p>Simula los resultados de todos los grupos del Mundial 2026. ¿Quién pasa a octavos?</p>
+      <button class="game-btn">Jugar ahora</button>
+    </div>
+    <div class="game-card" onclick="showSection('predictor')">
+      <span class="game-icon">🎯</span>
+      <h3>Predictor de Partidos</h3>
+      <p>Pon el marcador de cada partido y construye tu quiniela del Mundial completa.</p>
+      <button class="game-btn">Predecir</button>
+    </div>
+    <div class="game-card" onclick="showSection('quiz')">
+      <span class="game-icon">🧠</span>
+      <h3>Quiz Mundialero</h3>
+      <p>¿Cuánto sabes de los Mundiales? 10 preguntas para demostrar que eres un experto.</p>
+      <button class="game-btn">Empezar</button>
+    </div>
+  </div>
+
+  <!-- NOTICIAS -->
+  <div class="section-title" style="margin-top:1rem">Últimas <span>Noticias</span></div>
+  <div class="news-grid">
+    <div class="news-card big">
+      <div class="news-card-img-wrap news-card big">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80" alt="Estadios Mundial 2026" onerror="this.style.display='none'">
+      </div>
+      <div class="news-card-body">
+        <span class="news-tag gold">Mundial 2026</span>
+        <h3>Los 16 estadios del Mundial 2026: capacidades, ciudades y horarios confirmados</h3>
+        <p>La FIFA ha confirmado los recintos que acogerán la mayor Copa del Mundo de la historia, con 48 selecciones y 104 partidos. El MetLife Stadium de Nueva York será la sede de la final.</p>
+        <div class="news-time">⏱ Hace 2 horas</div>
+      </div>
+    </div>
+    <div class="news-side">
+      <div class="news-card">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=600&q=80" alt="España" onerror="this.style.display='none'">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">España</span>
+          <h3>España presenta su lista de 26 convocados con varias sorpresas</h3>
+          <div class="news-time">⏱ Hace 4 horas</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80" alt="Fútbol lesión" onerror="this.style.display='none'">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag red">Lesión</span>
+          <h3>Duda en la convocatoria de Brasil: baja de última hora antes del Mundial</h3>
+          <div class="news-time">⏱ Hace 6 horas</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img-wrap">
+          <img class="news-card-img" src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=600&q=80" alt="Análisis estadístico" onerror="this.style.display='none'">
+        </div>
+        <div class="news-card-body">
+          <span class="news-tag">Análisis</span>
+          <h3>Las 5 selecciones más en forma de cara al Mundial según la IA</h3>
+          <div class="news-time">⏱ Hace 8 horas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SIMULADOR DE GRUPOS ══════ -->
+<div id="section-simulador" class="section">
+  <div style="padding: 2rem 2rem 0">
+    <div class="hero-eyebrow" style="text-align:left">⚽ Mini juego</div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:2.5rem; font-weight:900; text-transform:uppercase; letter-spacing:-0.5px; margin-bottom:0.3rem">Simulador de <span style="color:var(--green)">Grupos</span></h2>
+    <p style="color:var(--muted); margin-bottom:2rem">Elige dos selecciones, simula el partido y actualiza la tabla de clasificación.</p>
+  </div>
+
+  <div class="simulador">
+    <!-- SIMULADOR DE PARTIDO -->
+    <div class="match-sim">
+      <h3>⚡ Simular partido</h3>
+      <div class="match-row">
+        <div class="match-team-block">
+          <span class="match-team-flag" id="sim-flag-a">🇧🇷</span>
+          <div>
+            <select id="sim-team-a" onchange="updateSimFlags()">
+              <option value="🇧🇷|Brasil">🇧🇷 Brasil</option>
+              <option value="🇦🇷|Argentina">🇦🇷 Argentina</option>
+              <option value="🇪🇸|España">🇪🇸 España</option>
+              <option value="🇫🇷|Francia">🇫🇷 Francia</option>
+              <option value="🇩🇪|Alemania">🇩🇪 Alemania</option>
+              <option value="🇵🇹|Portugal">🇵🇹 Portugal</option>
+              <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿|Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
+              <option value="🇳🇱|Países Bajos">🇳🇱 Países Bajos</option>
+              <option value="🇺🇾|Uruguay">🇺🇾 Uruguay</option>
+              <option value="🇲🇽|México">🇲🇽 México</option>
+              <option value="🇺🇸|EE.UU.">🇺🇸 EE.UU.</option>
+              <option value="🇯🇵|Japón">🇯🇵 Japón</option>
+              <option value="🇲🇦|Marruecos">🇲🇦 Marruecos</option>
+              <option value="🇸🇳|Senegal">🇸🇳 Senegal</option>
+              <option value="🇰🇷|Corea del Sur">🇰🇷 Corea del Sur</option>
+            </select>
+          </div>
+        </div>
+        <div class="match-vs">VS</div>
+        <div class="match-team-block right">
+          <span class="match-team-flag" id="sim-flag-b">🇦🇷</span>
+          <div>
+            <select id="sim-team-b" onchange="updateSimFlags()">
+              <option value="🇦🇷|Argentina">🇦🇷 Argentina</option>
+              <option value="🇧🇷|Brasil">🇧🇷 Brasil</option>
+              <option value="🇪🇸|España">🇪🇸 España</option>
+              <option value="🇫🇷|Francia">🇫🇷 Francia</option>
+              <option value="🇩🇪|Alemania">🇩🇪 Alemania</option>
+              <option value="🇵🇹|Portugal">🇵🇹 Portugal</option>
+              <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿|Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
+              <option value="🇳🇱|Países Bajos">🇳🇱 Países Bajos</option>
+              <option value="🇺🇾|Uruguay">🇺🇾 Uruguay</option>
+              <option value="🇲🇽|México">🇲🇽 México</option>
+              <option value="🇺🇸|EE.UU.">🇺🇸 EE.UU.</option>
+              <option value="🇯🇵|Japón">🇯🇵 Japón</option>
+              <option value="🇲🇦|Marruecos">🇲🇦 Marruecos</option>
+              <option value="🇸🇳|Senegal">🇸🇳 Senegal</option>
+              <option value="🇰🇷|Corea del Sur">🇰🇷 Corea del Sur</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="match-score-display" id="score-display">
+        <span id="score-a">—</span>
+        <span class="score-dash">:</span>
+        <span id="score-b">—</span>
+      </div>
+      <div id="match-result-text" style="text-align:center; color:var(--muted); font-size:0.9rem; margin-bottom:1rem; min-height:1.4rem"></div>
+      <div class="sim-controls">
+        <button class="btn-green" onclick="simularPartido()">⚡ Simular partido</button>
+        <button class="btn-outline" onclick="simularTodo()">🎲 Simular todos los grupos</button>
+        <button class="btn-outline" onclick="resetGroups()" style="border-color:var(--muted); color:var(--muted)">↺ Reiniciar</button>
+      </div>
+    </div>
+
+    <!-- GRUPOS -->
+    <div class="section-title" style="padding:0; margin-bottom:1rem">Tabla de <span>Clasificación</span></div>
+    <div class="sim-groups" id="groups-container"></div>
+    <p style="color:var(--muted); font-size:0.8rem; text-align:center; margin-bottom:2rem">🟢 Pasa de fase · 🔴 Eliminado (basado en simulaciones)</p>
+  </div>
+</div>
+
+<!-- ══════ PREDICTOR ══════ -->
+<div id="section-predictor" class="section">
+  <div style="padding: 2rem 2rem 0">
+    <div class="hero-eyebrow" style="text-align:left">🎯 Mini juego</div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:2.5rem; font-weight:900; text-transform:uppercase; margin-bottom:0.3rem">Predictor de <span style="color:var(--gold)">Partidos</span></h2>
+    <p style="color:var(--muted); margin-bottom:2rem">Predice los marcadores de los primeros partidos del Mundial 2026. ¡El torneo empieza el 11 de junio!</p>
+  </div>
+  <div class="predictor-section">
+    <div class="bracket-round-title">📅 Jornada 1 — Partidos inaugurales</div>
+    <div class="bracket-matches" id="predictor-matches"></div>
+    <div class="flex-center">
+      <button class="btn-green" onclick="guardarPrediccion()">💾 Guardar mi predicción</button>
+      <button class="btn-outline" onclick="generateRandomPredictions()">🎲 Rellenar al azar</button>
+    </div>
+    <div id="predictor-msg" style="text-align:center; color:var(--green); font-size:0.95rem; margin-top:1rem; min-height:1.5rem"></div>
+
+    <!-- RANKING CERRADO -->
+    <div style="margin-top:2.5rem">
+      <div class="bracket-round-title">🏅 Ranking de acertantes</div>
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden">
+        <div style="background:var(--bg3); border-bottom:1px solid var(--border); padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:1px">Clasificación de predicciones</div>
+            <div style="font-size:0.8rem; color:var(--muted); margin-top:2px">Se activa cuando empiece el Mundial</div>
+          </div>
+          <div id="ranking-countdown-badge" style="background:rgba(255,210,52,0.1); border:1px solid rgba(255,210,52,0.3); border-radius:8px; padding:0.4rem 1rem; font-size:0.82rem; color:var(--gold); font-weight:600"></div>
+        </div>
+        <div id="ranking-locked-body" style="padding:2.5rem 1.5rem; text-align:center">
+          <div style="font-size:3rem; margin-bottom:1rem">🔒</div>
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem">Ranking bloqueado</div>
+          <p style="color:var(--muted); font-size:0.9rem; max-width:380px; margin:0 auto 1.5rem">El ranking se abrirá en cuanto arranque el primer partido del Mundial. Guarda tu quiniela ahora y entra en la clasificación.</p>
+          <div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap">
+            <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:0.7rem 1.2rem; text-align:center; min-width:100px">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:800; color:var(--green)" id="rank-cd-d">--</div>
+              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted)">días</div>
+            </div>
+            <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:0.7rem 1.2rem; text-align:center; min-width:100px">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:800; color:var(--green)" id="rank-cd-h">--</div>
+              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted)">horas</div>
+            </div>
+            <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:0.7rem 1.2rem; text-align:center; min-width:100px">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:800; color:var(--green)" id="rank-cd-m">--</div>
+              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted)">min</div>
+            </div>
+          </div>
+        </div>
+        <div id="ranking-open-body" style="display:none; padding:1rem">
+          <table style="width:100%; border-collapse:collapse; font-size:0.9rem">
+            <thead>
+              <tr style="background:var(--bg3)">
+                <th style="padding:0.6rem 1rem; text-align:left; color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border)">#</th>
+                <th style="padding:0.6rem 1rem; text-align:left; color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border)">Usuario</th>
+                <th style="padding:0.6rem 1rem; text-align:right; color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border)">Aciertos exactos</th>
+                <th style="padding:0.6rem 1rem; text-align:right; color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border)">Ganador correcto</th>
+                <th style="padding:0.6rem 1rem; text-align:right; color:var(--muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border)">Puntos</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ QUIZ ══════ -->
+<div id="section-quiz" class="section">
+  <div style="padding: 2rem 2rem 0">
+    <div class="hero-eyebrow" style="text-align:left">🧠 Mini juego</div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:2.5rem; font-weight:900; text-transform:uppercase; margin-bottom:0.3rem">Quiz <span style="color:var(--gold)">Mundialero</span></h2>
+    <p style="color:var(--muted); margin-bottom:2rem">10 preguntas sobre la historia de los Mundiales. ¿Cuántas aciertas?</p>
+  </div>
+  <div class="quiz-section">
+    <div class="quiz-card" id="quiz-container"></div>
+  </div>
+</div>
+
+<!-- ══════ VOTACIÓN FAVORITOS ══════ -->
+<div id="section-clasif" class="section">
+  <div style="padding: 2rem 2rem 0">
+    <div class="hero-eyebrow" style="text-align:left">🗳️ Votación de la comunidad</div>
+    <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:2.5rem; font-weight:900; text-transform:uppercase; margin-bottom:0.3rem">¿Quién gana el <span style="color:var(--green)">Mundial?</span></h2>
+    <p style="color:var(--muted); margin-bottom:1.5rem">Vota por la selección que crees que ganará el Mundial 2026. Los resultados son en tiempo real y compartidos con todos los visitantes.</p>
+  </div>
+  <div class="vote-section">
+    <div class="vote-header-bar">
+      <div class="vote-total">Total de votos: <strong id="total-votes-display">—</strong></div>
+      <div class="vote-user-pick" id="user-pick-display" style="display:none">
+        Tu voto: <span class="pick-flag" id="pick-flag-display"></span> <strong id="pick-name-display"></strong>
+        <button onclick="cambiarVoto()" style="margin-left:0.5rem; background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.8rem; text-decoration:underline; font-family:'Barlow',sans-serif">cambiar</button>
+      </div>
+    </div>
+    <div id="team-panel-container"></div>
+    <div id="vote-list" class="vote-grid">
+      <div class="vote-loading">⏳ Cargando votos...</div>
+    </div>
+    <p style="color:var(--muted); font-size:0.78rem; text-align:center; margin-top:1.5rem">Los votos se guardan localmente y se acumulan con los de otros visitantes. Haz clic en una selección para ver su análisis.</p>
+  </div>
+</div>
+
+<script>
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const target = new Date('2026-06-11T18:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) { document.getElementById('countdown').textContent = '¡El Mundial ha comenzado!'; return; }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ── NAV ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── GROUPS DATA ──
+const GROUPS = [
+  { letter: 'A', teams: [
+    { flag:'🇺🇸', name:'EE.UU.', pts:0, gf:0, gc:0 },
+    { flag:'🇲🇽', name:'México', pts:0, gf:0, gc:0 },
+    { flag:'🇵🇱', name:'Polonia', pts:0, gf:0, gc:0 },
+    { flag:'🇸🇦', name:'Arabia S.', pts:0, gf:0, gc:0 },
+  ]},
+  { letter: 'B', teams: [
+    { flag:'🇦🇷', name:'Argentina', pts:0, gf:0, gc:0 },
+    { flag:'🇦🇺', name:'Australia', pts:0, gf:0, gc:0 },
+    { flag:'🇵🇹', name:'Portugal', pts:0, gf:0, gc:0 },
+    { flag:'🇮🇳', name:'India', pts:0, gf:0, gc:0 },
+  ]},
+  { letter: 'C', teams: [
+    { flag:'🇫🇷', name:'Francia', pts:0, gf:0, gc:0 },
+    { flag:'🇧🇪', name:'Bélgica', pts:0, gf:0, gc:0 },
+    { flag:'🇨🇦', name:'Canadá', pts:0, gf:0, gc:0 },
+    { flag:'🇲🇦', name:'Marruecos', pts:0, gf:0, gc:0 },
+  ]},
+  { letter: 'D', teams: [
+    { flag:'🇧🇷', name:'Brasil', pts:0, gf:0, gc:0 },
+    { flag:'🇺🇾', name:'Uruguay', pts:0, gf:0, gc:0 },
+    { flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', name:'Inglaterra', pts:0, gf:0, gc:0 },
+    { flag:'🇨🇲', name:'Camerún', pts:0, gf:0, gc:0 },
+  ]},
+  { letter: 'E', teams: [
+    { flag:'🇪🇸', name:'España', pts:0, gf:0, gc:0 },
+    { flag:'🇩🇪', name:'Alemania', pts:0, gf:0, gc:0 },
+    { flag:'🇯🇵', name:'Japón', pts:0, gf:0, gc:0 },
+    { flag:'🇨🇴', name:'Colombia', pts:0, gf:0, gc:0 },
+  ]},
+  { letter: 'F', teams: [
+    { flag:'🇳🇱', name:'P. Bajos', pts:0, gf:0, gc:0 },
+    { flag:'🇰🇷', name:'Corea S.', pts:0, gf:0, gc:0 },
+    { flag:'🇨🇱', name:'Chile', pts:0, gf:0, gc:0 },
+    { flag:'🇸🇳', name:'Senegal', pts:0, gf:0, gc:0 },
+  ]},
+];
+
+let groupsState = JSON.parse(JSON.stringify(GROUPS));
+
+function renderGroups() {
+  const container = document.getElementById('groups-container');
+  container.innerHTML = groupsState.map(g => {
+    const sorted = [...g.teams].sort((a,b) => {
+      if (b.pts !== a.pts) return b.pts - a.pts;
+      return (b.gf - b.gc) - (a.gf - a.gc);
+    });
+    return `<div class="group-card">
+      <div class="group-header">
+        <span class="group-letter">Grupo ${g.letter}</span>
+        <span>PJ · GF · GC · PTS</span>
+      </div>
+      <div class="group-teams">
+        ${sorted.map((t, i) => `
+          <div class="team-row">
+            <div class="team-qual ${i < 2 ? 'q' : 'e'}"></div>
+            <span class="team-flag">${t.flag}</span>
+            <span class="team-name">${t.name}</span>
+            <span style="color:var(--muted); font-size:0.78rem; margin-right:4px">${t.gf}-${t.gc}</span>
+            <span class="team-pts">${t.pts}</span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+renderGroups();
+
+function updateSimFlags() {
+  const a = document.getElementById('sim-team-a').value.split('|');
+  const b = document.getElementById('sim-team-b').value.split('|');
+  document.getElementById('sim-flag-a').textContent = a[0];
+  document.getElementById('sim-flag-b').textContent = b[0];
+}
+
+function simularPartido() {
+  const aVal = document.getElementById('sim-team-a').value.split('|');
+  const bVal = document.getElementById('sim-team-b').value.split('|');
+  const nameA = aVal[1], nameB = bVal[1];
+  const scoreA = Math.floor(Math.random() * 5);
+  const scoreB = Math.floor(Math.random() * 5);
+  const scoreDisp = document.getElementById('score-display');
+  scoreDisp.classList.add('simulating');
+  let ticks = 0;
+  const interval = setInterval(() => {
+    document.getElementById('score-a').textContent = Math.floor(Math.random() * 5);
+    document.getElementById('score-b').textContent = Math.floor(Math.random() * 5);
+    ticks++;
+    if (ticks > 12) {
+      clearInterval(interval);
+      document.getElementById('score-a').textContent = scoreA;
+      document.getElementById('score-b').textContent = scoreB;
+      scoreDisp.classList.remove('simulating');
+      const res = scoreA > scoreB ? `🏆 Gana ${nameA}` : scoreB > scoreA ? `🏆 Gana ${nameB}` : `🤝 Empate`;
+      document.getElementById('match-result-text').textContent = res;
+    }
+  }, 80);
+}
+
+function simularTodo() {
+  groupsState = JSON.parse(JSON.stringify(GROUPS));
+  groupsState.forEach(g => {
+    const teams = g.teams;
+    for (let i = 0; i < teams.length; i++) {
+      for (let j = i+1; j < teams.length; j++) {
+        const ga = Math.floor(Math.random() * 5);
+        const gb = Math.floor(Math.random() * 5);
+        teams[i].gf += ga; teams[i].gc += gb;
+        teams[j].gf += gb; teams[j].gc += ga;
+        if (ga > gb) { teams[i].pts += 3; }
+        else if (gb > ga) { teams[j].pts += 3; }
+        else { teams[i].pts += 1; teams[j].pts += 1; }
+      }
+    }
+  });
+  renderGroups();
+  document.getElementById('match-result-text').textContent = '✅ ¡Todos los grupos simulados!';
+}
+
+function resetGroups() {
+  groupsState = JSON.parse(JSON.stringify(GROUPS));
+  renderGroups();
+  document.getElementById('score-a').textContent = '—';
+  document.getElementById('score-b').textContent = '—';
+  document.getElementById('match-result-text').textContent = '';
+}
+
+// ── PREDICTOR ──
+const MATCHES = [
+  { a:'🇲🇽', ta:'México',     ca:'mx', b:'🇿🇦', tb:'Sudáfrica',   cb:'za', fecha:'Jue 11 Jun', hora:'21:00', sede:'Estadio Azteca, México' },
+  { a:'🇰🇷', ta:'Corea del Sur', ca:'kr', b:'🇺🇳', tb:'Rep. Europeo', cb:'un', fecha:'Jue 11 Jun', hora:'04:00+1', sede:'Estadio Akron, Guadalajara' },
+  { a:'🇨🇦', ta:'Canadá',     ca:'ca', b:'🇺🇳', tb:'Rep. Europeo A',cb:'un', fecha:'Vie 12 Jun', hora:'20:00', sede:'BMO Field, Toronto' },
+  { a:'🇺🇸', ta:'EE.UU.',     ca:'us', b:'🇵🇾', tb:'Paraguay',     cb:'py', fecha:'Vie 12 Jun', hora:'01:00+1', sede:'SoFi Stadium, Los Ángeles' },
+  { a:'🇶🇦', ta:'Qatar',      ca:'qa', b:'🇨🇭', tb:'Suiza',        cb:'ch', fecha:'Sáb 13 Jun', hora:'20:00', sede:'Levi\'s Stadium, San Francisco' },
+  { a:'🇧🇷', ta:'Brasil',     ca:'br', b:'🇲🇦', tb:'Marruecos',    cb:'ma', fecha:'Sáb 13 Jun', hora:'23:00', sede:'MetLife Stadium, Nueva York' },
+];
+
+function renderPredictor() {
+  document.getElementById('predictor-matches').innerHTML = MATCHES.map((m, i) => {
+    const fA = m.ca !== 'un' ? `<img src="https://flagcdn.com/w40/${m.ca}.png" alt="${m.ta}" style="width:28px;height:19px;object-fit:cover;border-radius:2px" onerror="this.outerHTML='<span>${m.a}</span>'">` : `<span style="font-size:1.2rem">${m.a}</span>`;
+    const fB = m.cb !== 'un' ? `<img src="https://flagcdn.com/w40/${m.cb}.png" alt="${m.tb}" style="width:28px;height:19px;object-fit:cover;border-radius:2px" onerror="this.outerHTML='<span>${m.b}</span>'">` : `<span style="font-size:1.2rem">${m.b}</span>`;
+    return `<div class="bracket-match" style="flex-direction:column; gap:0.6rem; align-items:stretch">
+      <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; color:var(--muted)">
+        <span>📅 ${m.fecha}</span><span>·</span><span>🕐 ${m.hora}</span><span>·</span><span>🏟 ${m.sede}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.8rem">
+        <div class="bm-team">${fA}<span>${m.ta}</span></div>
+        <div class="bm-score-inputs">
+          <input class="score-input" type="number" min="0" max="20" value="" id="pred-${i}-a" placeholder="0">
+          <span class="score-sep">—</span>
+          <input class="score-input" type="number" min="0" max="20" value="" id="pred-${i}-b" placeholder="0">
+        </div>
+        <div class="bm-team right">${fB}<span>${m.tb}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+renderPredictor();
+
+function generateRandomPredictions() {
+  MATCHES.forEach((m, i) => {
+    document.getElementById(`pred-${i}-a`).value = Math.floor(Math.random() * 5);
+    document.getElementById(`pred-${i}-b`).value = Math.floor(Math.random() * 5);
+  });
+}
+
+function guardarPrediccion() {
+  const picks = MATCHES.map((m, i) => ({
+    a: document.getElementById(`pred-${i}-a`).value,
+    b: document.getElementById(`pred-${i}-b`).value,
+  }));
+  const incomplete = picks.some(p => p.a === '' || p.b === '');
+  const msg = document.getElementById('predictor-msg');
+  if (incomplete) {
+    msg.style.color = 'var(--red)';
+    msg.textContent = '⚠️ Rellena todos los marcadores antes de guardar.';
+    setTimeout(() => msg.textContent = '', 3000);
+    return;
+  }
+  try { window.storage.set('golnet26:picks', JSON.stringify(picks), false); } catch(e) {}
+  msg.style.color = 'var(--green)';
+  msg.textContent = '✅ ¡Quiniela guardada! Estarás en el ranking cuando empiece el Mundial.';
+  setTimeout(() => msg.textContent = '', 4000);
+}
+
+// ── RANKING COUNTDOWN ──
+const MUNDIAL_START = new Date('2026-06-11T21:00:00-06:00');
+
+function updateRankingCountdown() {
+  const now = new Date();
+  const diff = MUNDIAL_START - now;
+  const isOpen = diff <= 0;
+
+  const badge = document.getElementById('ranking-countdown-badge');
+  const dEl = document.getElementById('rank-cd-d');
+  const hEl = document.getElementById('rank-cd-h');
+  const mEl = document.getElementById('rank-cd-m');
+  const locked = document.getElementById('ranking-locked-body');
+  const open = document.getElementById('ranking-open-body');
+
+  if (!badge) return;
+
+  if (isOpen) {
+    badge.textContent = '🟢 RANKING ABIERTO';
+    badge.style.background = 'rgba(0,196,90,0.1)';
+    badge.style.borderColor = 'rgba(0,196,90,0.3)';
+    badge.style.color = 'var(--green)';
+    locked.style.display = 'none';
+    open.style.display = 'block';
+    renderRanking();
+    return;
+  }
+
+  badge.textContent = '🔒 Abre cuando empiece el Mundial';
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  if (dEl) dEl.textContent = String(d).padStart(2,'0');
+  if (hEl) hEl.textContent = String(h).padStart(2,'0');
+  if (mEl) mEl.textContent = String(m).padStart(2,'0');
+}
+
+setInterval(updateRankingCountdown, 1000);
+updateRankingCountdown();
+
+const MOCK_RANKING = [
+  { nick:'⚽ Futbolero94', exactos:4, ganador:5, pts:23 },
+  { nick:'🇪🇸 Chelovek',   exactos:3, ganador:5, pts:19 },
+  { nick:'🏆 MundialFan',  exactos:3, ganador:4, pts:17 },
+  { nick:'🎯 Oráculo10',   exactos:2, ganador:5, pts:15 },
+  { nick:'🐐 MrPredictor', exactos:2, ganador:4, pts:12 },
+];
+
+function renderRanking() {
+  const tbody = document.getElementById('ranking-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = MOCK_RANKING.map((r, i) => {
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`;
+    return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">
+      <td style="padding:0.75rem 1rem; font-family:'Barlow Condensed',sans-serif; font-size:1.1rem">${medal}</td>
+      <td style="padding:0.75rem 1rem; font-weight:500">${r.nick}</td>
+      <td style="padding:0.75rem 1rem; text-align:right; color:var(--green); font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700">${r.exactos}</td>
+      <td style="padding:0.75rem 1rem; text-align:right; color:var(--muted)">${r.ganador}</td>
+      <td style="padding:0.75rem 1rem; text-align:right; font-family:'Barlow Condensed',sans-serif; font-size:1.2rem; font-weight:800; color:var(--gold)">${r.pts}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── QUIZ ──
+const QUESTIONS = [
+  { q: '¿Qué país ha ganado más Mundiales de fútbol?', opts: ['Brasil','Alemania','Italia','Argentina'], a: 0 },
+  { q: '¿En qué año se celebró el primer Mundial de fútbol?', opts: ['1926','1930','1934','1938'], a: 1 },
+  { q: '¿Quién es el máximo goleador de la historia de los Mundiales?', opts: ['Pelé','Ronaldo Nazário','Miroslav Klose','Gerd Müller'], a: 2 },
+  { q: '¿Qué selección ganó el Mundial de 2018 en Rusia?', opts: ['Croacia','Bélgica','Francia','Argentina'], a: 2 },
+  { q: '¿Dónde se jugó la final del Mundial de 2022?', opts: ['Dubai','Riyadh','Doha','Abu Dhabi'], a: 2 },
+  { q: '¿Cuántos equipos participarán en el Mundial 2026?', opts: ['32','40','48','64'], a: 2 },
+  { q: '¿Qué país fue sede del Mundial de 2010?', opts: ['Brasil','Sudáfrica','Japón','Alemania'], a: 1 },
+  { q: '¿En qué partido España ganó su primer Mundial?', opts: ['vs Países Bajos','vs Alemania','vs Brasil','vs Italia'], a: 0 },
+  { q: '¿Quién marcó el gol de oro en la final de 2022?', opts: ['Mbappé','Deschamps','Messi','Kylian'], a: 2, note: 'Mario Götze en 2014 / Messi levantó la copa en 2022' },
+  { q: '¿Cuántos países coorganizan el Mundial 2026?', opts: ['1','2','3','4'], a: 2 },
+];
+
+let quizState = { current: 0, score: 0, answered: false };
+
+function renderQuiz() {
+  const q = QUESTIONS[quizState.current];
+  const container = document.getElementById('quiz-container');
+  const dots = QUESTIONS.map((_, i) => {
+    let cls = '';
+    if (i < quizState.current) cls = 'done';
+    else if (i === quizState.current) cls = 'current';
+    return `<div class="quiz-dot ${cls}"></div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="quiz-progress">${dots}</div>
+    <div style="font-size:0.85rem; color:var(--muted); margin-bottom:0.8rem">Pregunta ${quizState.current+1} de ${QUESTIONS.length} · ${quizState.score} aciertos</div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" id="qopt-${i}" onclick="answerQuiz(${i})">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="btn-green" id="quiz-next-btn" onclick="nextQuestion()" style="display:none">Siguiente pregunta →</button>`;
+}
+
+function answerQuiz(idx) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const q = QUESTIONS[quizState.current];
+  const fb = document.getElementById('quiz-feedback');
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  if (idx === q.a) {
+    quizState.score++;
+    document.getElementById('qopt-'+idx).classList.add('correct');
+    fb.textContent = '✅ ¡Correcto!';
+    fb.className = 'quiz-feedback ok';
+  } else {
+    document.getElementById('qopt-'+idx).classList.add('wrong');
+    document.getElementById('qopt-'+q.a).classList.add('correct');
+    fb.textContent = '❌ Incorrecto. La respuesta era: ' + q.opts[q.a];
+    fb.className = 'quiz-feedback fail';
+  }
+  document.getElementById('quiz-next-btn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  quizState.current++;
+  quizState.answered = false;
+  if (quizState.current >= QUESTIONS.length) {
+    showQuizResult();
+  } else {
+    renderQuiz();
+  }
+}
+
+function showQuizResult() {
+  const pct = Math.round(quizState.score / QUESTIONS.length * 100);
+  let medal = pct >= 90 ? '🏆' : pct >= 60 ? '🥈' : '⚽';
+  let msg = pct >= 90 ? '¡Eres un experto mundialero!' : pct >= 60 ? '¡Buen nivel!' : '¡Sigue practicando!';
+  document.getElementById('quiz-container').innerHTML = `
+    <div class="quiz-score-display">
+      <span class="big-score">${quizState.score}/${QUESTIONS.length}</span>
+      <div style="font-size:3rem">${medal}</div>
+      <p>${msg} — ${pct}% de acierto</p>
+      <button class="btn-green" onclick="resetQuiz()">Volver a jugar</button>
+    </div>`;
+}
+
+function resetQuiz() {
+  quizState = { current: 0, score: 0, answered: false };
+  renderQuiz();
+}
+renderQuiz();
+
+// ── VOTACIÓN ──
+const TEAMS = [
+  { id:'brasil',    flag:'🇧🇷', name:'Brasil',        titles:5, cc:'br' },
+  { id:'argentina', flag:'🇦🇷', name:'Argentina',     titles:3, cc:'ar' },
+  { id:'francia',   flag:'🇫🇷', name:'Francia',       titles:2, cc:'fr' },
+  { id:'espana',    flag:'🇪🇸', name:'España',        titles:1, cc:'es' },
+  { id:'alemania',  flag:'🇩🇪', name:'Alemania',      titles:4, cc:'de' },
+  { id:'portugal',  flag:'🇵🇹', name:'Portugal',      titles:0, cc:'pt' },
+  { id:'inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', name:'Inglaterra',  titles:1, cc:'gb-eng' },
+  { id:'pbajos',    flag:'🇳🇱', name:'Países Bajos',  titles:0, cc:'nl' },
+  { id:'uruguay',   flag:'🇺🇾', name:'Uruguay',       titles:2, cc:'uy' },
+  { id:'belgica',   flag:'🇧🇪', name:'Bélgica',       titles:0, cc:'be' },
+  { id:'japon',     flag:'🇯🇵', name:'Japón',         titles:0, cc:'jp' },
+  { id:'marruecos', flag:'🇲🇦', name:'Marruecos',     titles:0, cc:'ma' },
+  { id:'eeuu',      flag:'🇺🇸', name:'EE.UU.',        titles:0, cc:'us' },
+  { id:'mexico',    flag:'🇲🇽', name:'México',        titles:0, cc:'mx' },
+  { id:'corea',     flag:'🇰🇷', name:'Corea del Sur', titles:0, cc:'kr' },
+];
+
+const STORAGE_KEY = 'golnet26:votes';
+const MY_VOTE_KEY = 'golnet26:myvote';
+
+let votesData = {};
+let myVote = null;
+
+async function loadVotes() {
+  try {
+    const shared = await window.storage.get(STORAGE_KEY, true);
+    votesData = shared ? JSON.parse(shared.value) : {};
+  } catch(e) {
+    votesData = {};
+  }
+  // Seed with some base votes for visual interest if empty
+  if (Object.keys(votesData).length === 0) {
+    const seeds = { brasil:312, argentina:287, francia:241, espana:198, alemania:154, portugal:133, inglaterra:121, pbajos:88, uruguay:72, belgica:65, japon:44, marruecos:39, eeuu:31, mexico:28, corea:22 };
+    votesData = seeds;
+    try { await window.storage.set(STORAGE_KEY, JSON.stringify(votesData), true); } catch(e) {}
+  }
+  try {
+    const myv = await window.storage.get(MY_VOTE_KEY, false);
+    myVote = myv ? myv.value : null;
+  } catch(e) { myVote = null; }
+  renderVotes();
+}
+
+function totalVotes() {
+  return Object.values(votesData).reduce((s, v) => s + v, 0);
+}
+
+function renderVotes() {
+  const total = totalVotes();
+  document.getElementById('total-votes-display').textContent = total.toLocaleString('es-ES');
+  if (myVote) {
+    const t = TEAMS.find(t => t.id === myVote);
+    document.getElementById('user-pick-display').style.display = 'flex';
+    document.getElementById('pick-flag-display').textContent = t ? t.flag : '';
+    document.getElementById('pick-name-display').textContent = t ? t.name : '';
+  } else {
+    document.getElementById('user-pick-display').style.display = 'none';
+  }
+  const sorted = [...TEAMS].sort((a, b) => (votesData[b.id]||0) - (votesData[a.id]||0));
+  const list = document.getElementById('vote-list');
+  list.innerHTML = sorted.map((t, i) => {
+    const votes = votesData[t.id] || 0;
+    const pct = total > 0 ? ((votes / total) * 100) : 0;
+    const pctDisplay = pct.toFixed(1);
+    const bgW = Math.max(pct, 2);
+    const isMe = myVote === t.id;
+    const isLeader = i === 0;
+    const hasVoted = myVote !== null;
+    const titlesStr = t.titles > 0 ? `${'★'.repeat(Math.min(t.titles,5))} ${t.titles} título${t.titles>1?'s':''}` : 'Sin títulos';
+    let btnHtml;
+    if (isMe) {
+      btnHtml = `<button class="btn-vote voted-this" disabled>✓ Tu voto</button>`;
+    } else if (hasVoted) {
+      btnHtml = `<button class="btn-vote" disabled>Votar</button>`;
+    } else {
+      btnHtml = `<button class="btn-vote" onclick="emitirVoto('${t.id}')">Votar</button>`;
+    }
+    const flagImg = `<img src="https://flagcdn.com/w40/${t.cc}.png" alt="${t.name}" style="width:32px;height:22px;object-fit:cover;border-radius:3px;flex-shrink:0" onerror="this.style.display='none'">`;
+    return `<div class="vote-row ${isMe?'my-pick':''} ${isLeader&&!isMe?'leader':''}" id="vrow-${t.id}" onclick="openTeamPanel('${t.id}')" style="cursor:pointer">
+      <div class="vote-bg-bar" id="vbg-${t.id}" style="width:${bgW}%"></div>
+      <span class="vote-pos ${isLeader?'gold':''}">${i+1}</span>
+      ${flagImg}
+      <span class="vote-name">${t.name}<br><span style="font-size:0.72rem; color:var(--muted); font-weight:400">${titlesStr}</span></span>
+      <div class="vote-bar-wrap">
+        <div class="vote-bar-track"><div class="vote-bar-fill" id="vbar-${t.id}" style="width:${pct}%"></div></div>
+        <span class="vote-pct" id="vpct-${t.id}">${pctDisplay}%</span>
+      </div>
+      <span class="vote-count" id="vcnt-${t.id}">${votes.toLocaleString('es-ES')} votos</span>
+      <span onclick="event.stopPropagation()">${btnHtml}</span>
+    </div>`;
+  }).join('');
+}
+
+async function emitirVoto(teamId) {
+  if (myVote) return;
+  votesData[teamId] = (votesData[teamId] || 0) + 1;
+  myVote = teamId;
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(votesData), true);
+    await window.storage.set(MY_VOTE_KEY, teamId, false);
+  } catch(e) {}
+  renderVotes();
+}
+
+async function cambiarVoto() {
+  if (!myVote) return;
+  votesData[myVote] = Math.max(0, (votesData[myVote] || 1) - 1);
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(votesData), true);
+    await window.storage.delete(MY_VOTE_KEY, false);
+  } catch(e) {}
+  myVote = null;
+  renderVotes();
+}
+
+// ── TEAM DETAIL PANEL ──
+const TEAM_STATS = {
+  brasil:    { mundiales:5, participaciones:22, mejorResultado:'Campeón (1958,1962,1970,1994,2002)', entrenador:'Dorival Júnior', estrellas:'Vinicius Jr., Rodrygo, Endrick' },
+  argentina: { mundiales:3, participaciones:19, mejorResultado:'Campeón (1978,1986,2022)', entrenador:'Lionel Scaloni', estrellas:'Messi, De Paul, Lautaro' },
+  francia:   { mundiales:2, participaciones:16, mejorResultado:'Campeón (1998,2018)', entrenador:'Didier Deschamps', estrellas:'Mbappé, Griezmann, Camavinga' },
+  espana:    { mundiales:1, participaciones:16, mejorResultado:'Campeón (2010)', entrenador:'Luis de la Fuente', estrellas:'Yamal, Pedri, Morata' },
+  alemania:  { mundiales:4, participaciones:20, mejorResultado:'Campeón (1954,1974,1990,2014)', entrenador:'Julian Nagelsmann', estrellas:'Musiala, Wirtz, Kimmich' },
+  portugal:  { mundiales:0, participaciones:9,  mejorResultado:'Tercero (1966)', entrenador:'Roberto Martínez', estrellas:'Cristiano Ronaldo, Félix, Bernardo Silva' },
+  inglaterra:{ mundiales:1, participaciones:17, mejorResultado:'Campeón (1966)', entrenador:'Lee Carsley', estrellas:'Bellingham, Saka, Kane' },
+  pbajos:    { mundiales:0, participaciones:11, mejorResultado:'Finalista (1974,1978,2010)', entrenador:'Ronald Koeman', estrellas:'Van Dijk, Dumfries, Reijnders' },
+  uruguay:   { mundiales:2, participaciones:14, mejorResultado:'Campeón (1930,1950)', entrenador:'Marcelo Bielsa', estrellas:'Valverde, Núñez, Araújo' },
+  belgica:   { mundiales:0, participaciones:14, mejorResultado:'3º lugar (2018)', entrenador:'Rudi García', estrellas:'De Bruyne, Lukaku, Tielemans' },
+  japon:     { mundiales:0, participaciones:8,  mejorResultado:'Octavos (2002,2010,2022)', entrenador:'Hajime Moriyasu', estrellas:'Mitoma, Endo, Kubo' },
+  marruecos: { mundiales:0, participaciones:7,  mejorResultado:'4º lugar (2022)', entrenador:'Walid Regragui', estrellas:'Hakimi, Ziyech, En-Nesyri' },
+  eeuu:      { mundiales:0, participaciones:11, mejorResultado:'Tercero (1930)', entrenador:'Mauricio Pochettino', estrellas:'Pulisic, Reyna, Turner' },
+  mexico:    { mundiales:0, participaciones:17, mejorResultado:'Cuartos (1970,1986)', entrenador:'Javier Aguirre', estrellas:'Sánchez, Antuna, Lozano' },
+  corea:     { mundiales:0, participaciones:11, mejorResultado:'4º lugar (2002)', entrenador:'Hong Myung-bo', estrellas:'Son, Lee, Hwang' },
+};
+
+let activePanel = null;
+const aiCache = {};
+
+async function openTeamPanel(teamId) {
+  const container = document.getElementById('team-panel-container');
+  if (activePanel === teamId) {
+    container.innerHTML = '';
+    activePanel = null;
+    return;
+  }
+  activePanel = teamId;
+  const team = TEAMS.find(t => t.id === teamId);
+  const stats = TEAM_STATS[teamId] || {};
+  const titlesColor = team.titles > 0 ? 'var(--gold)' : 'var(--muted)';
+
+  container.innerHTML = `
+    <div class="team-panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <img src="https://flagcdn.com/w80/${team.cc}.png" alt="${team.name}" style="height:36px;width:auto;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.4)" onerror="this.outerHTML='<span style=font-size:2.2rem>${team.flag}</span>'">
+          <span class="panel-team-name">${team.name}</span>
+        </div>
+        <button class="panel-close" onclick="openTeamPanel('${teamId}')">✕</button>
+      </div>
+      <div class="panel-body">
+        <div class="panel-stats">
+          <div class="panel-stat"><span class="panel-stat-val" style="color:${titlesColor}">${team.titles || '0'}</span><span class="panel-stat-label">Mundiales</span></div>
+          <div class="panel-stat"><span class="panel-stat-val">${stats.participaciones || '—'}</span><span class="panel-stat-label">Part.</span></div>
+          <div class="panel-stat" style="min-width:140px"><span class="panel-stat-val" style="font-size:0.85rem; color:var(--text)">${stats.entrenador || '—'}</span><span class="panel-stat-label">Seleccionador</span></div>
+          <div class="panel-stat" style="flex:1; min-width:200px"><span class="panel-stat-val" style="font-size:0.8rem; color:var(--text); white-space:normal">${stats.estrellas || '—'}</span><span class="panel-stat-label">Figuras</span></div>
+        </div>
+        <div class="panel-section-title">📋 Análisis para el Mundial 2026</div>
+        <div class="panel-content" id="panel-ai-content">
+          <div class="panel-loading"><div class="spinner"></div> Generando análisis con IA...</div>
+        </div>
+      </div>
+    </div>`;
+
+  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  if (aiCache[teamId]) {
+    renderPanelText(aiCache[teamId]);
+    return;
+  }
+
+  try {
+    const prompt = `Eres el analista de la web de fútbol GolNet26. Escribe un análisis conciso (3 párrafos cortos, máximo 180 palabras en total) sobre la selección de ${team.name} para el Mundial 2026. 
+Estructura: 
+1. Estado actual del equipo y forma reciente (cómo llegan al Mundial).
+2. Sus fortalezas y el sistema de juego / estilo del seleccionador.
+3. Sus debilidades y qué necesitan para llegar lejos.
+Escribe en español, tono periodístico informal y directo. No uses negritas ni markdown. Solo texto plano en párrafos separados por saltos de línea.`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    const text = data.content?.find(b => b.type === 'text')?.text || 'No se pudo generar el análisis.';
+    aiCache[teamId] = text;
+    if (activePanel === teamId) renderPanelText(text);
+  } catch(e) {
+    if (activePanel === teamId) {
+      document.getElementById('panel-ai-content').innerHTML = `<p style="color:var(--muted)">No se pudo cargar el análisis en este momento.</p>`;
+    }
+  }
+}
+
+function renderPanelText(text) {
+  const el = document.getElementById('panel-ai-content');
+  if (!el) return;
+  const paragraphs = text.trim().split(/\n+/).filter(p => p.trim());
+  el.innerHTML = '';
+  let i = 0;
+  function addNext() {
+    if (i >= paragraphs.length) return;
+    const p = document.createElement('p');
+    p.textContent = '';
+    el.appendChild(p);
+    const chars = paragraphs[i].split('');
+    let ci = 0;
+    p.classList.add('typing-cursor');
+    const interval = setInterval(() => {
+      p.textContent += chars[ci++] || '';
+      if (ci >= chars.length) {
+        clearInterval(interval);
+        p.classList.remove('typing-cursor');
+        i++;
+        setTimeout(addNext, 120);
+      }
+    }, 12);
+  }
+  addNext();
+}
+
+loadVotes();
+</script>
+</body>
+</html>
